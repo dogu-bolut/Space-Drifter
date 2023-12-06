@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a5469993456164f499039a0fb7e5fdc1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - deathSound: {instanceID: 0}
+  - shootSound: {instanceID: 0}
+  - moveJoystick: {instanceID: 0}
+  - laserPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
