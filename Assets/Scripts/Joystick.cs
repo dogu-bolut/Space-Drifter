@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Joystick : MonoBehaviour
 {
@@ -25,16 +26,16 @@ public class Joystick : MonoBehaviour
 
             circle.transform.position = pointA * -1;
             outerCircle.transform.position = pointA;
-            
+
         }
         if (Input.GetMouseButton(0))
         {
             touchStart = true;
-            pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z)); 
+            pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
         }
         else
         {
-            touchStart = false;            
+            touchStart = false;
         }
     }
     private void FixedUpdate()
@@ -46,7 +47,7 @@ public class Joystick : MonoBehaviour
             moveCharacter(direction);
 
             circle.transform.position = new Vector2(pointA.x + direction.x, pointA.y + direction.y);
-        }        
+        }
     }
     void moveCharacter(Vector2 direction)
     {
