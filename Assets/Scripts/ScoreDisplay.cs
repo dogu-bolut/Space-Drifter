@@ -10,7 +10,7 @@ public class ScoreDisplay : MonoBehaviour
     void Start()
     {
         scoreText = GetComponent<Text>();
-        gameSession = FindObjectOfType<GameSession>();
+        gameSession = FindFirstObjectByType<GameSession>();
     }
 
     // Update is called once per frame

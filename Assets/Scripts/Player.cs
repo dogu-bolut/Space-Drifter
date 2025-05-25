@@ -5,14 +5,15 @@ public class Player : MonoBehaviour
 {
     //configuration parameters
     [Header("Player")]
+    [SerializeField] float fixedYPos = -7.8f;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float padding = 1f;
     [SerializeField] public int health = 1000;
     [SerializeField] public int toAdd = 300;
     [SerializeField] AudioClip deathSound;
-    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.5f;
+    [SerializeField][Range(0, 1)] float deathSoundVolume = 0.5f;
     [SerializeField] AudioClip shootSound;
-    [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.3f;
+    [SerializeField][Range(0, 1)] float shootSoundVolume = 0.3f;
 
     [Header("Projectile")]
     [SerializeField] GameObject laserPrefab;
@@ -23,8 +24,8 @@ public class Player : MonoBehaviour
 
     float xMin;
     float xMax;
-    float yMin;
-    float yMax;
+    //float yMin;
+    //float yMax;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        FindObjectOfType<Level>().LoadGameOver();
+        FindFirstObjectByType<Level>().LoadGameOver();
         Destroy(gameObject);
         AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, deathSoundVolume);
     }
@@ -90,7 +91,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            laser.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, projectileSpeed);
             yield return new WaitForSeconds(0.05f);
             AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
             yield return new WaitForSeconds(projectileFiringPeriod);
@@ -100,17 +101,17 @@ public class Player : MonoBehaviour
     private void Move()
     {
         var deltaX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        var deltaY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        //var deltaY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
-        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-        transform.position = new Vector2(newXPos, newYPos);
+        //var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
+        transform.position = new Vector2(newXPos, fixedYPos);
     }
     private void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
         xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+        //yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
+        //yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
     }
 }
